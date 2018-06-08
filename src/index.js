@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
+import { render } from "react-dom";
 import App from "./containers/app";
 
 import thunk from "redux-thunk";
@@ -8,16 +9,9 @@ import reducers from "./reducers/index";
 
 const store = createStore(reducers, applyMiddleware(thunk));
 
-const AppProvider = (
+render(
   <Provider store={store}>
     <App />
-  </Provider>
+  </Provider>,
+  document.getElementById("root"),
 );
-
-class Main extends Component {
-  render() {
-    return AppProvider;
-  }
-}
-
-export default Main;
