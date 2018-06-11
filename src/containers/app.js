@@ -17,10 +17,10 @@ class App extends Component {
     return (
       <VehicleSocket>
         <div style={cover}>
-          <Map center={position} zoom={14} style={cover}>
+          <Map center={position} zoom={13} style={cover}>
             <TileLayer
-              attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
             />
 
             {map(vehicles, vehicle => {
