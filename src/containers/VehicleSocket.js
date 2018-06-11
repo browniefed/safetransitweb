@@ -5,7 +5,7 @@ import io from "socket.io-client";
 
 class VehicleSocket extends Component {
   componentDidMount() {
-    this.socket = io("https://safetransit.now.sh/");
+    this.socket = io(process.env.REACT_APP_SERVER);
     this.socket.on("vehicles_update", data => this.props.updateVehicles(data));
   }
 
