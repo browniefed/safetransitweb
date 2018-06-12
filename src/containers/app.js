@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Map, Marker, TileLayer } from "react-leaflet";
 import map from "lodash/map";
-import VehicleSocket from "./VehicleSocket";
+import SocketContainer from "./socket";
 import { divIcon, point } from "leaflet";
-
+import { loadReports } from "../reducers/reports";
 import styled, { css } from "react-emotion";
 
 const position = [45.52, -122.6716007];
@@ -39,7 +39,7 @@ const colors = {
 };
 
 const marker = css({
-  transition: "all 7s ease-in-out",
+  transition: "all 7s ease",
   borderRadius: "15px",
   border: "1px solid #FFF",
   display: "inline-block",
@@ -60,11 +60,15 @@ const VehicleMarker = styled.div({}, type => {
 });
 
 class App extends Component {
+  componentDidMount() {
+    this.props.loadReports();
+  }
+
   render() {
     const { vehicles } = this.props;
 
     return (
-      <VehicleSocket>
+      <SocketContainer>
         <div className={cover}>
           <Map center={position} zoom={13} className={cover}>
             <TileLayer
@@ -103,7 +107,7 @@ class App extends Component {
             })}
           </Map>
         </div>
-      </VehicleSocket>
+      </SocketContainer>
     );
   }
 }
@@ -111,6 +115,11 @@ class App extends Component {
 const mapStateToProps = state => {
   return {
     vehicles: state.vehicles,
+    reports: state.reports,
   };
 };
-export default connect(mapStateToProps)(App);
+
+const mapDispatchToProps = {
+  loadReports,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(App);
